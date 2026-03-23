@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarPaths - Comp Eng</title>
+    <style>
+        /* Global Styles */
+        body {
+            background-color: #262626; /* Dark gray matching the mockup */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 90px; /* Space for the fixed header */
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Fixed Blue Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #0044cc; /* Royal blue from the mockup */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 32px;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .logo-sub {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            margin-left: 30px;
+            cursor: pointer;
+        }
+
+        nav button:hover {
+            text-decoration: underline;
+        }
+
+        /* Page Layout */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center; /* Centers most of the text globally */
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        /* Search Bar */
+        .search-container {
+            margin: 40px 0;
+        }
+
+        #search-input {
+            padding: 12px 20px;
+            width: 300px;
+            font-size: 16px;
+            border: none;
+            background-color: #0056b3; /* Slightly lighter blue for the bar */
+            color: white;
+            border-radius: 25px; /* Pill shape */
+            text-align: center;
+        }
+
+        #search-input::placeholder {
+            color: #b3d1ff;
+        }
+
+        /* Ordered Lists for Top Searched Sections */
+        .lists-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        .list-section {
+            width: 45%;
+        }
+
+        .list-section ol {
+            list-style-position: inside;
+            padding: 0;
+            text-align: left;
+            display: inline-block; /* Keeps numbers aligned while centering the block */
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Hide tables on this version, replacing with cleaner text layout based on mockups */
+        .skills-list, .positions-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        
+        .skills-list li, .positions-list li {
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-main">CarPaths</span>
+            <span class="logo-sub">Comp Eng</span>
+        </div>
+        <nav>
+            <button onclick="navigate('home')">Home</button>
+            <button onclick="navigate('careers')">Careers</button>
+            <button onclick="navigate('companies')">Companies</button>
+        </nav>
+    </header>
+
+    <main id="home" class="page active">
+        <h1>Welcome</h1>
+        <p>Introductory Information...</p>
+        
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search Here" onkeyup="checkSearch(event)">
+        </div>
+        <div id="search-results" style="color: #4da6ff; margin-bottom: 20px;"></div>
+
+        <div class="lists-container">
+            <div class="list-section">
+                <h2>Top Searched Careers</h2>
+                <ol id="top-careers-list">
+                    </ol>
+            </div>
+            <div class="list-section">
+                <h2>Top Searched Companies</h2>
+                <ol id="top-companies-list">
+                    </ol>
+            </div>
+        </div>
+    </main>
+
+    <main id="careers" class="page">
+        <h1>All Careers</h1>
+        <ul class="skills-list" id="all-careers-list">
+            </ul>
+    </main>
+
+    <main id="companies" class="page">
+        <h1>All Companies</h1>
+        <ul class="skills-list" id="all-companies-list">
+            </ul>
+    </main>
+
+    <main id="single-career" class="page">
+        <h1 id="career-title">Career Title</h1>
+        
+        <h2>What is it?</h2>
+        <p id="career-overview">Overview goes here...</p>
+        
+        <h2>Required and Recommended Skills</h2>
+        <ul class="skills-list" id="career-skills">
+            </ul>
+
+        <h2>Companies Hiring</h2>
+        <ul class="skills-list" id="career-companies">
+            </ul>
+    </main>
+
+    <main id="single-company" class="page">
+        <h1 id="company-title">Company Title</h1>
+        
+        <h2>History</h2>
+        <p id="company-overview">History goes here...</p>
+        
+        <h2>Positions</h2>
+        <ul class="positions-list" id="company-engineers">
+            </ul>
+
+        <h2>How to get in touch</h2>
+        <p id="company-contact">Contact goes here...</p>
+    </main>
+
+    <script>
+        // --- MOCK DATABASE (Bugs Fixed) ---
+        const db = {
+            careers: {
+                "software-engineer": {
+                    title: "Software Engineer",
+                    overview: "Software Engineering is a branch of computer science that deals with the design, development, testing, and maintenance of software applications.",
+                    skills: [
+                        "Proficiency in languages like Java, C++, or Python.",
+                        "Strong problem-solving and analytical abilities.",
+                        "Understanding of software development lifecycle (SDLC)."
+                    ],
+                    hiringCompanies: ["google", "intel", "nvidia"]
+                },
+                "machine-learning-engineer": {
+                    title: "Machine Learning Engineer",
+                    overview: "Machine Learning Engineering focuses on researching, building, and designing self-running artificial intelligence systems to automate predictive models.",
+                    skills: [
+                        "Applied mathematics and algorithms.",
+                        "Data modeling and evaluation.",
+                        "Neural networks and deep learning architectures."
+                    ],
+                    hiringCompanies: ["google", "nvidia"]
+                },
+                "data-engineer": {
+                    title: "Data Engineer",
+                    overview: "Data Engineering is the practice of designing and building systems for collecting, storing, and analyzing data at scale.",
+                    skills: [
+                        "Database systems (SQL and NoSQL).",
+                        "Data warehousing solutions.",
+                        "ETL (Extract, Transform, Load) tools."
+                    ],
+                    hiringCompanies: ["google", "intel"]
+                },
+                // FIXED: Removed the extra "careers: {" object wrapper and standardized the ID
+                "hardware-systems-design-engineer": {
+                    title: "Hardware systems design engineer",
+                    overview: "Hardware systems design engineer researches and develops computer components ranging from processors to external IO devices",
+                    skills: [
+                        "PCB designing",
+                        "Computer Systems Architecture",
+                        "Proficiency in CAD tools",
+                        "Circuit Design"
+                    ],
+                    // FIXED: IDs now match the new company entries below
+                    hiringCompanies: ["analog-devices", "keyence", "nvidia"]
+                }
+            },
+            companies: {
+                "google": {
+                    title: "Google",
+                    overview: "Google Started at Stanford University in 1996 as a research project by Larry Page and Sergey Brin. It has grown into a multinational technology company specializing in Internet-related services.",
+                    requiredCareers: ["software-engineer", "machine-learning-engineer", "data-engineer"],
+                    contact: "Visit careers.google.com to apply and get in touch with recruiters."
+                },
+                "intel": {
+                    title: "Intel",
+                    overview: "Intel was founded in 1968 and is one of the world's largest semiconductor chip manufacturers, pioneering the x86 series of microprocessors.",
+                    requiredCareers: ["software-engineer", "data-engineer"],
+                    contact: "Visit jobs.intel.com to explore opportunities."
+                },
+                "nvidia": {
+                    title: "NVIDIA",
+                    overview: "NVIDIA is a global leader in artificial intelligence computing. Founded in 1993, they invented the GPU, igniting the PC gaming market and modern AI.",
+                    // FIXED: Added hardware engineer to NVIDIA's list
+                    requiredCareers: ["software-engineer", "machine-learning-engineer", "hardware-systems-design-engineer"],
+                    contact: "Visit nvidia.com/en-us/about-nvidia/careers to apply."
+                },
+                // FIXED: Added missing companies so the hardware engineer page doesn't crash when loading
+                "analog-devices": {
+                    title: "Analog Devices",
+                    overview: "Analog Devices is a global leader in the design and manufacturing of analog, mixed signal, and DSP integrated circuits.",
+                    requiredCareers: ["hardware-systems-design-engineer"],
+                    contact: "Visit careers.analog.com to apply."
+                },
+                "keyence": {
+                    title: "Keyence",
+                    overview: "Keyence is a leading supplier of sensors, measuring systems, laser markers, microscopes, and machine vision systems worldwide.",
+                    requiredCareers: ["hardware-systems-design-engineer"],
+                    contact: "Visit keyence.com/careers to apply."
+                }
+            }
+        }; // FIXED: Changed the comma to a semicolon here!
+
+        // --- NAVIGATION LOGIC ---
+        function navigate(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0); // Scroll to top on page change
+            if(pageId !== 'home') document.getElementById('search-results').innerHTML = '';
+        }
+
+        function loadCareer(careerId) {
+            const career = db.careers[careerId];
+            document.getElementById('career-title').innerText = career.title;
+            document.getElementById('career-overview').innerText = career.overview;
+            
+            const skillsList = document.getElementById('career-skills');
+            skillsList.innerHTML = '';
+            career.skills.forEach(skill => {
+                skillsList.innerHTML += `<li>${skill}</li>`;
+            });
+
+            const companiesList = document.getElementById('career-companies');
+            companiesList.innerHTML = '';
+            career.hiringCompanies.forEach(compId => {
+                const comp = db.companies[compId];
+                companiesList.innerHTML += `<li><a onclick="loadCompany('${compId}')">${comp.title}</a></li>`;
+            });
+
+            navigate('single-career');
+        }
+
+        function loadCompany(companyId) {
+            const comp = db.companies[companyId];
+            document.getElementById('company-title').innerText = comp.title;
+            document.getElementById('company-overview').innerText = comp.overview;
+            document.getElementById('company-contact').innerText = comp.contact;
+
+            const engineersList = document.getElementById('company-engineers');
+            engineersList.innerHTML = '';
+            comp.requiredCareers.forEach(carId => {
+                const career = db.careers[carId];
+                engineersList.innerHTML += `<li><a onclick="loadCareer('${carId}')">${career.title}</a></li>`;
+            });
+
+            navigate('single-company');
+        }
+
+        // --- SEARCH LOGIC ---
+        function checkSearch(event) {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsDiv = document.getElementById('search-results');
+            resultsDiv.innerHTML = '';
+
+            if(event.key === 'Enter' || query.length > 2) {
+                let found = false;
+                for (const [id, career] of Object.entries(db.careers)) {
+                    if (career.title.toLowerCase().includes(query)) {
+                        resultsDiv.innerHTML = `Result found: <a onclick="loadCareer('${id}')" style="text-decoration: underline;">${career.title}</a>`;
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found && query.length > 0 && event.key === 'Enter') {
+                    resultsDiv.innerHTML = "No careers found.";
+                }
+            }
+        }
+
+        // --- INITIALIZATION ---
+        function init() {
+            const topCareers = document.getElementById('top-careers-list');
+            const allCareers = document.getElementById('all-careers-list');
+            for (const [id, career] of Object.entries(db.careers)) {
+                topCareers.innerHTML += `<li><a onclick="loadCareer('${id}')">${career.title}</a></li>`;
+                allCareers.innerHTML += `<li style="margin-bottom: 15px;"><a onclick="loadCareer('${id}')">${career.title}</a></li>`;
+            }
+
+            const topCompanies = document.getElementById('top-companies-list');
+            const allCompanies = document.getElementById('all-companies-list');
+            for (const [id, comp] of Object.entries(db.companies)) {
+                topCompanies.innerHTML += `<li><a onclick="loadCompany('${id}')">${comp.title}</a></li>`;
+                allCompanies.innerHTML += `<li style="margin-bottom: 15px;"><a onclick="loadCompany('${id}')">${comp.title}</a></li>`;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
